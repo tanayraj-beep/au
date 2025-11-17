@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Calculator</title>
+    <style>
+        /* Basic Styling (you can customize this) */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .calculator, .equation-solver, .currency-converter {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 20px; /* Space between sections */
+            width: 300px;
+        }
+
+        .display {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.5em;
+            text-align: right;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #eee;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        .operator {
+            background-color: #f0f0f0;
+        }
+
+        .equal {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Smart Calculator</h1>
+
+    <!-- Calculator Section -->
+    <div class="calculator">
+        <div class="section-title">Calculator</div>
+        <input type="text" class="display" id="display" readonly>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <!-- Equation Solver Section -->
+    <div class="equation-solver">
+        <div class="section-title">Equation Solver (OCR)</div>
+        <input type="file" id="imageInput" accept="image/*" onchange="processImage()">
+        <button onclick="solveEquation()">Solve Equation</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Currency Converter Section -->
+    <div class="currency-converter">
+        <div class="section-title">Currency Converter</div>
+        <input type="number" id="amount" placeholder="Amount in INR">
+        <select id="currency">
+            <option value="USD">US Dollar</option>
+            <option value="

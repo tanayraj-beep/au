@@ -1,0 +1,36 @@
+<input type="file" id="imageInput" accept="image/*" onchange="processImage()">
+<button onclick="solveEquation()">Solve Equation</button>
+<div id="result"></div>
+
+<script src="https://cdn.rawgit.com/naptha/tesseract.js/0.2.0/dist/tesseract.min.js"></script>
+<script>
+    function processImage() {
+        const input = document.getElementById('imageInput');
+        const file = input.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            Tesseract.recognize(
+                event.target.result,
+                'eng',
+                {
+                    logger: info => console.log(info) // Optional logging
+                }
+            ).then(({ data: { text } }) => {
+                document.getElementById('result').innerText = text;
+            });
+        };
+        
+        reader.readAsDataURL(file);
+    }
+
+    function solveEquation() {
+        const equation = document.getElementById('result').innerText;
+        try {
+            const answer = eval(equation);
+            document.getElementById('result').innerText = `Solution: ${answer}`;
+        } catch (error) {
+            document.getElementById('result').innerText = 'Error in equation';
+        }
+    }
+</script>

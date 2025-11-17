@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Calculator with Photo Scanning and Currency Converter</title>
+    <style>
+        /* Add your CSS styling here */
+    </style>
+</head>
+<body>
+    <h1>Smart Calculator</h1>
+    
+    <!-- Photo Scanning Section -->
+    <h2>Equation Solver</h2>
+    <input type="file" id="imageInput" accept="image/*" onchange="processImage()">
+    <button onclick="solveEquation()">Solve Equation</button>
+    <div id="result"></div>
+
+    <!-- Currency Converter Section -->
+    <h2>Currency Converter</h2>
+    <input type="number" id="amount" placeholder="Amount in INR">
+    <select id="currency">
+        <option value="USD">US Dollar</option>
+        <option value="EUR">Euro</option>
+        <option value="GBP">British Pound</option>
+    </select>
+    <button onclick="convertCurrency()">Convert</button>
+    <div id="conversionResult"></div>
+
+    <script>
+        // Include the JavaScript functions for OCR and currency conversion here
+    </script>
+</body>
+</html>

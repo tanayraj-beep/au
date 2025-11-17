@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For You — A Little Note</title>
+<style>
+  :root{ --bg:#0f172a; --card:#0b1220; --accent:#ff6b6b; --muted:#98a0b3; }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient( circle at 20% 10%, rgba(255,107,107,0.06), transparent 15%),
+      linear-gradient(180deg,#071129 0%, #091226 100%);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:#e6eef8;
+  }
+
+  .card{
+    width:min(760px,94vw);
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:18px;
+    padding:28px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+    position:relative;
+    overflow:hidden;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .avatar{
+    width:58px;height:58px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffd36b);
+    display:grid;place-items:center;font-weight:700;color:#041326;
+    box-shadow: 0 6px 18px rgba(255,107,107,0.12);
+    transform:rotate(-6deg);
+  }
+  h1{margin:0;font-size:1.15rem;letter-spacing:0.2px}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
+
+  .note{
+    margin-top:20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));
+    border-radius:12px;padding:18px 18px 12px;border:1px solid rgba(255,255,255,0.02);
+    min-height:150px;
+    display:flex;align-items:flex-start;
+  }
+
+  .typed{
+    font-family: "Courier New", monospace;
+    line-height:1.6;
+    font-size:1.05rem;
+    white-space:pre-wrap;
+  }
+
+  .controls{display:flex;gap:10px;margin-top:16px}
+  button{
+    background:transparent;color:var(--accent);border:1px solid rgba(255,107,107,0.18);
+    padding:8px 14px;border-radius:10px;font-weight:600;cursor:pointer;
+    transition:all .18s ease;
+  }
+  button:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(255,107,107,0.08)}
+  .small{font-size:.9rem;padding:7px 12px;border-radius:8px}
+  .muted{color:var(--muted);border-color:rgba(255,255,255,0.03)}
+
+  /* confetti canvas covers card */
+  canvas#confetti{position:absolute;inset:0;pointer-events:none}
+
+  footer{margin-top:16px;color:var(--muted);font-size:0.85rem;display:flex;justify-content:space-between;align-items:center}
+  a.link{color:#bcd8ff;text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="A sweet e-card">
+    <canvas id="confetti" width="800" height="600"></canvas>
+
+    <header>
+      <div class="avatar">❤️</div>
+      <div>
+        <h1>Hey — I made this for you</h1>
+        <p class="lead">Open it and press <strong>Play</strong> ✨</p>
+      </div>
+    </header>
+
+    <div class="note" aria-live="polite">
+      <div class="typed" id="typed"> </div>
+    </div>
+
+    <div class="controls" aria-hidden="false">
+      <button id="playBtn" class="small">Play</button>
+      <button id="replayBtn" class="small muted">Replay</button>
+      <button id="darkBtn" class="small muted">Toggle Theme</button>
+    </div>
+
+    <footer>
+      <span>— Your secret admirer</span>
+      <span><a class="link" href="#" id="downloadBtn">Save as note</a></span>
+    </footer>
+  </div>
+
+<script>
+  // Typing message
+  const message = `Hi you 😊,
+
+I thought I’d say it plainly:
+You make ordinary days feel like music.
+I like how you laugh, how you listen, and the little way you care.
+
+Would you like to get coffee sometime? ☕️
+
+— Someone who thinks about you.`;
+
+  const typedEl = document.getElementById('typed');
+  const playBtn = document.getElementById('playBtn');
+  const replayBtn = document.getElementById('replayBtn');
+  const darkBtn = document.getElementById('darkBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  let idx = 0, timer = null;
+  function typeStart() {
+    cancelTyping();
+    typedEl.textContent = '';
+    idx = 0;
+    timer = setInterval(() => {
+      typedEl.textContent += message[idx++];
+      typedEl.parentElement.scrollTop = typedEl.parentElement.scrollHeight;
+      if (idx >= message.length) {
+        cancelTyping();
+        burstConfetti();
+      }
+    }, 35);
+  }
+  function cancelTyping(){ if(timer){ clearInterval(timer); timer = null; } }
+
+  playBtn.addEventListener('click', () => { typeStart(); playBtn.blur(); });
+  replayBtn.addEventListener('click', () => { typeStart(); });
+  darkBtn.addEventListener('click', () => {
+    document.body.classList.toggle('alt');
+    if(document.body.classList.contains('alt')){
+      document.documentElement.style.setProperty('--accent','#7ce3a3');
+    } else {
+      document.documentElement.style.setProperty('--accent','#ff6b6b');
+    }
+  });
+
+  downloadBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const blob = new Blob([message], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'a_little_note.txt'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Simple confetti (lightweight)
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let confettiPieces = [];
+  function resize(){ canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+  new ResizeObserver(resize).observe(canvas);
+  function spawnConfetti(){
+    confettiPieces = [];
+    const count = 60;
+    for(let i=0;i<count;i++){
+      confettiPieces.push({
+        x: Math.random()*canvas.width,
+        y: -20 - Math.random()*canvas.height*0.2,
+        vx: (Math.random()-0.5)*4,
+        vy: 2 + Math.random()*4,
+        rot: Math.random()*360,
+        size: 6 + Math.random()*8,
+        color: `hsl(${Math.floor(Math.random()*360)},70%,60%)`
+      });
+    }
+  }
+  function burstConfetti(){
+    spawnConfetti();
+    let t = 0;
+    const anim = setInterval(()=>{
+      t++;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confettiPieces.forEach(p=>{
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.06;
+        p.rot += p.vx*3;
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.rotate(p.rot * Math.PI/180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size/2,-p.size/2,p.size, p.size*0.6);
+        ctx.restore();
+      });
+      if(t>160){ clearInterval(anim); ctx.clearRect(0,0,canvas.width,canvas.height); confettiPieces=[]; }
+    }, 16);
+  }
+
+  // helpful: autoplay a gentle chime (optional)
+  try{
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playChime(){
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'sine';
+      o.frequency.value = 440;
+      o.connect(g); g.connect(audioCtx.destination);
+      g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.02, audioCtx.currentTime + 0.02);
+      o.start();
+      o.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.32);
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.0);
+      setTimeout(()=>o.stop(), 1050);
+    }
+    playBtn.addEventListener('click', playChime);
+  } catch(e){ /* ignore if audio not allowed */ }
+
+  // keyboard: press Enter to play
+  document.addEventListener('keydown', e=>{ if(e.key==='Enter') typeStart(); });
+</script>
+</body>
+</html>

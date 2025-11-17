@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Responsive Navbar</title>
+<style>
+  /* Basic reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  /* Navbar container */
+  .navbar {
+    background-color: #333;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Navbar links */
+  .navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Container for links */
+  .nav-links {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* Hamburger menu icon (hidden on desktop) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 14px 20px;
+  }
+
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+  }
+
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #333;
+      position: absolute;
+      top: 50px;
+      left: 0;
+    }
+
+    .nav-links.show {
+      display: flex;
+    }
+
+    .hamburger {
+      display: flex;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .navbar a {
+      padding: 10px 20px;
+      border-top: 1px solid #444;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="CSS box animation%.html">Contact</a>
+    <a href="https://blog.amazon.com" target="_blank" rel="noopener">Blog</a>
+    <a href="tanayrajjaiswal@gmail.com">Email us</a>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+</script>
+
+</body>
+</html>

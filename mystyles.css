@@ -1,0 +1,10 @@
+h1{color:rgb(244, 168, 4);
+    text-align: center;
+    font-family: Arial;
+    text-decoration:underline}
+p{color:rgb(0, 255, 238);
+    font-size: 18px;
+    text-align: center;
+    font-family: Verdana;
+    text-decoration: italic;}
+body{background-color:rgb(255, 0, 0);}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Time Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background: #4a90e2;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #ff0000;
+    }
+    .free {
+      color: #0c0c0c;
+      font-style: italic;
+    }
+    .lab {
+      background: #fdf3d9;
+    }
+    .sl {
+      background: #e8f7f0;
+    }
+    .p {
+      background: #f0e6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Class Time Table</h1>
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>09:30 - 10:20</th>
+      <th>10:20 - 11:10</th>
+      <th>11:10 - 12:00</th>
+      <th>12:00 - 12:50</th>
+      <th>12:50 - 01:20</th>
+      <th>01:20 - 02:10</th>
+      <th>02:10 - 03:00</th>
+      <th>03:00 - 03:50</th>
+      <th>03:50 - 04:40</th>
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td>Fundamentals of Web Development (T)</td>
+      <td>Engineering Physics (T)</td>
+      <td class="free">FREE</td>
+      <td colspan="1">Lunch Break</td>
+      <td>Mathematics for Computer Science (T)</td>
+      <td>Problem Solving with Python (T)</td>
+      <td>Engineering Physics (T)</td>
+      <td class="free">FREE</td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td>Problem Solving with Python (T)</td>
+      <td class="sl">Problem Solving with Python (SL)</td>
+      <td>Mathematics for Computer Science (T)</td>
+      <td class="free">FREE</td>
+      <td>Fundamentals of Web Development (T)</td>
+      <td class="sl">Fundamentals of Web Development (SL)</td>
+      <td>Engineering Physics (T)</td>
+      <td class="free">FREE</td>
+    </tr>
+    <tr>
+      <td>Wednesday</td>
+      <td>Mathematics for Computer Science (T)</td>
+      <td>Engineering Physics (T)</td>
+      <td class="lab">Fundamentals of Web Development (LAB)</td>
+      <td colspan="1">Lunch Break</td>
+      <td class="sl">Mathematics for Computer Science (SL)</td>
+      <td colspan="2">Talent Enrichment</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Thursday</td>
+      <td class="lab">Fundamentals of Web Development (LAB)</td>
+      <td class="lab">Problem Solving with Python (LAB)</td>
+      <td class="free">FREE</td>
+      <td colspan="1">Lunch Break</td>
+      <td class="sl">Engineering Physics (SL)</td>
+      <td colspan="2">French / German</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Friday</td>
+      <td class="lab">Engineering Physics (LAB)</td>
+      <td class="p">Mathematics for Computer Science (P)</td>
+      <td class="free">FREE</td>
+      <td colspan="1">Lunch Break</td>
+      <td class="lab">Problem Solving with Python (LAB)</td>
+      <td colspan="2">French / German</td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+</html>

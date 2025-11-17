@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { color: #333; }
+    .section { margin-bottom: 30px; }
+    input, select, button { padding: 10px; margin: 5px 0; width: 100%; }
+    #result { font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Smart Calculator</h1>
+
+  <!-- Math Calculator -->
+  <div class="section">
+    <h2>🧮 Math Calculator</h2>
+    <input type="text" id="mathInput" placeholder="Enter equation (e.g., 2+2*3)" />
+    <button onclick="calculate()">Calculate</button>
+    <div id="mathResult"></div>
+  </div>
+
+  <!-- Currency Converter -->
+  <div class="section">
+    <h2>💱 Currency Converter</h2>
+    <input type="number" id="amount" placeholder="Amount" />
+    <select id="fromCurrency">
+      <option value="USD">USD</option>
+      <option value="INR">INR</option>
+      <option value="EUR">EUR</option>
+    </select>
+    <select id="toCurrency">
+      <option value="INR">INR</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+    </select>
+    <button onclick="convertCurrency()">Convert</button>
+    <div id="currencyResult"></div>
+  </div>
+
+  <!-- Photo Scanner -->
+  <div class="section">
+    <h2>📸 Scan Math Equation</h2>
+    <input type="file" id="photoInput" accept="image/*" />
+    <button onclick="scanPhoto()">Scan & Solve</button>
+    <div id="photoResult">*This feature requires integration with OCR and Math AI APIs.</div>
+  </div>
+
+  <script>
+    function calculate() {
+      const input = document.getElementById('mathInput').value;
+      try {
+        const result = eval(input);
+        document.getElementById('mathResult').innerText = "Result: " + result;
+      } catch {
+        document.getElementById('mathResult').innerText = "Invalid equation.";
+      }
+    }
+
+    function convertCurrency() {
+      const amount = document.getElementById('amount').value;
+      const from = document.getElementById('fromCurrency').value;
+      const to = document.getElementById('toCurrency').value;
+      // Placeholder conversion rate
+      const rates = { USD: 1, INR: 83, EUR: 0.93 };
+      const converted = (amount / rates[from]) * rates[to];
+      document.getElementById('currencyResult').innerText = `Converted: ${converted.toFixed(2)} ${to}`;
+    }
+
+    function scanPhoto() {
+      document.getElementById('photoResult').innerText = "Scanning not implemented. Use OCR + Math API.";
+    }
+  </script>
+</body>
+</html>

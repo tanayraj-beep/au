@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 3D Transform Example</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            perspective: 1000px; /* Establishes a 3D rendering context */
+        }
+
+        .box-container {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: white;
+            background-color: #007bff;
+            transition: transform 0.8s ease-in-out; /* Smooth transition for transform changes */
+            transform-style: preserve-3d; /* Ensures child elements are also in 3D space */
+        }
+
+        .box-container:hover {
+            transform: rotateY(180deg); /* Rotates the box 180 degrees around the Y-axis on hover */
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden; /* Hides the back of the element when facing away from the viewer */
+        }
+
+        .front {
+            background-color: #28a745;
+        }
+
+        .back {
+            background-color: #dc3545;
+            transform: rotateY(180deg); /* Positions the back face correctly behind the front face */
+        }
+    </style>
+</head>
+<body>
+    <div class="box-container">
+        <div class="face front">Front</div>
+        <div class="face back">Back</div>
+    </div>
+</body>
+</html>
